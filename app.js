@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const axios = require('axios');
+const pg = require('pg');
+const client = new pg.Client(process.env.DATABASE_URL);
 // i dont know what this do i need to review 
 const movieData = require('./data.json');
 const { resolveSoa } = require('dns');
@@ -13,6 +15,7 @@ const port = process.env.PORT
 const movieKey = process.env.API_KEY;
 
 app.use(cors());
+app.use(express.json());
 
 // #constructors#################################
 
@@ -116,13 +119,33 @@ app.get('/movie/:id', (req, res) => {
 // example: http://localhost:3000/movie/6
 // example: http://localhost:3000/movie/8
 
+app.post('/addmovie', (req, res) => {
+  const movie = req.body;
+  const sql = `INSERT INTO moviestable (title, release_year, director, genre, rating, moviecoverimg) VALUES ('${movie.title}', ${movie.release_year}, '${movie.director}', '${movie.genre}', ${movie.rating}, '${movie.moviecoverimg}') RETURNING *`;
+  client.query(sql)
+    .then((inserted) => {
+      res.send(inserted.rows);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
+
+app.get('/getmovies',(req,res)=>{
+  const sql = 'SELECT * from moviestable';
+  client.query(sql).then((wwres)=>{
+    res.send(wwres.rows);
+  })
+})
 
 
 // ########### listener
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+client.connect().then(() => {
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
+}).catch(() => { console.log(`error listening`) })
 
 
 
