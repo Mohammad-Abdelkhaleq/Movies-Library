@@ -44,3 +44,28 @@ the app will respond to the hits from the clients depending on a specific URL fo
 // example: http://localhost:3000/movie/6<br>
 // example: http://localhost:3000/movie/8<br>
 
+
+# example URls for lab 135:
+
+exapmle for post method (insert into):<br>
+### localhost:3000/addmovie
+```javascript
+{
+  "title": "spooderman",
+  "release_year": 1,
+  "director": "zac snider",
+  "genre": "action",
+  "rating": 99,
+  "moviecoverimg": "he came to save you from yourself "
+
+}
+
+```
+example for get route:
+<br>
+// example : localhost:3000/getmovies
+
+
+
+
+
