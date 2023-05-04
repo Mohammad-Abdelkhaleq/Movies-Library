@@ -123,8 +123,8 @@ app.post('/addmovie', (req, res) => {
   const movie = req.body;
   const sql = `INSERT INTO moviestable (title, release_year, director, genre, rating, moviecoverimg) VALUES ('${movie.title}', ${movie.release_year}, '${movie.director}', '${movie.genre}', ${movie.rating}, '${movie.moviecoverimg}') RETURNING *`;
   client.query(sql)
-    .then(() => {
-      res.send(data.rows);
+    .then((inserted) => {
+      res.send(inserted.rows);
     })
     .catch((err) => {
       res.send(err);
