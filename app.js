@@ -131,6 +131,17 @@ app.post('/addmovie', (req, res) => {
     });
 });
 
+// example: localhost:3000/addmovie
+// // {
+//   "title": "spooderman",
+//   "release_year": 1,
+//   "director": "zac snider",
+//   "genre": "action",
+//   "rating": 99,
+//   "moviecoverimg": "he came to save you from yourself "
+
+// }
+
 
 app.get('/getmovies',(req,res)=>{
   const sql = 'SELECT * from moviestable';
@@ -138,6 +149,8 @@ app.get('/getmovies',(req,res)=>{
     res.send(wwres.rows);
   })
 })
+
+// example : localhost:3000/getmovies
 
 
 // ########### listener
