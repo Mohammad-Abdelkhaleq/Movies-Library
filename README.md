@@ -25,3 +25,22 @@ the app will respond to the hits from the clients depending on a specific URL fo
 <br>
 
 ![alt text](./assets/Screenshot%202023-05-02%20020831.png)
+
+
+
+# example URls for lab 14:
+### search for trending 
+// example: http://localhost:3000/trending/all/day
+// example: http://localhost:3000/trending/all/week
+// example: http://localhost:3000/trending/person/day
+ 
+ ### searching for amovie 
+ // example: http://localhost:3000/search/movie?movie=AKA
+// example: http://localhost:3000/search/movie?movie=marvel
+
+### searching movie deatails by id 
+
+// example: http://localhost:3000/movie/5
+// example: http://localhost:3000/movie/6
+// example: http://localhost:3000/movie/8
+
