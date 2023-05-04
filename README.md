@@ -30,17 +30,17 @@ the app will respond to the hits from the clients depending on a specific URL fo
 
 # example URls for lab 14:
 ### search for trending 
-// example: http://localhost:3000/trending/all/day
-// example: http://localhost:3000/trending/all/week
-// example: http://localhost:3000/trending/person/day
+// example: http://localhost:3000/trending/all/day<br>
+// example: http://localhost:3000/trending/all/week<br>
+// example: http://localhost:3000/trending/person/day<br>
  
  ### searching for amovie 
- // example: http://localhost:3000/search/movie?movie=AKA
-// example: http://localhost:3000/search/movie?movie=marvel
+ // example: http://localhost:3000/search/movie?movie=AKA<br>
+// example: http://localhost:3000/search/movie?movie=marvel<br>
 
 ### searching movie deatails by id 
 
-// example: http://localhost:3000/movie/5
-// example: http://localhost:3000/movie/6
-// example: http://localhost:3000/movie/8
+// example: http://localhost:3000/movie/5<br>
+// example: http://localhost:3000/movie/6<br>
+// example: http://localhost:3000/movie/8<br>
 
