@@ -119,6 +119,8 @@ app.get('/movie/:id', (req, res) => {
 // example: http://localhost:3000/movie/6
 // example: http://localhost:3000/movie/8
 
+// #########################################################################################################################
+
 app.post('/addmovie', (req, res) => {
   const movie = req.body;
   const sql = `INSERT INTO moviestable (title, release_year, director, genre, rating, moviecoverimg) VALUES ('${movie.title}', ${movie.release_year}, '${movie.director}', '${movie.genre}', ${movie.rating}, '${movie.moviecoverimg}') RETURNING *`;
@@ -151,6 +153,46 @@ app.get('/getmovies',(req,res)=>{
 })
 
 // example : localhost:3000/getmovies
+
+// #3############################################################################################################
+// lab 16
+
+app.delete('/DELETE/:id',(req,res)=>{
+  const id = req.params.id;
+  const sql = `DELETE FROM moviestable WHERE id=${id} returning *`;
+  client.query(sql).then((wwres)=>{
+    res.send(`you deleted this movie ${wwres.rows[0].title}`);
+  }).catch((err)=>{
+    res.send(err);
+  })
+})
+// example : localhost:3000/DELETE/5
+
+
+app.put('/UPDATE/:id',(req,res)=>{
+  const id = req.params.id;
+  const movie = req.body;
+  const sql = `UPDATE moviestable SET title='${movie.title}', release_year=${movie.release_year}, director='${movie.director}', genre='${movie.genre}', rating=${movie.rating}, moviecoverimg='${movie.moviecoverimg}' WHERE id=${id} returning *`;
+  client.query(sql).then((wwres)=>{
+    res.send(wwres.rows);
+  }).catch((err)=>{
+    res.send(err);
+  })
+})
+
+// example : localhost:3000/UPDATE/5
+
+app.get('/getmovie/:id',(req,res)=>{
+  const id = req.params.id;
+  const sql = `SELECT * FROM moviestable WHERE id=${id};`;
+  client.query(sql).then((wwres)=>{
+    res.send(wwres.rows);
+  }).catch((err)=>{
+    res.send(err);
+  })
+})
+
+// example : localhost:3000/getmovie/5  
 
 
 // ########### listener

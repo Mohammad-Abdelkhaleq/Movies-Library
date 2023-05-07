@@ -68,4 +68,45 @@ example for get route:
 
 
 
+# example URls for lab 16:
+<br>
 
+```javascript
+app.put('/UPDATE/:id',(req,res)=>{
+  const id = req.params.id;
+  const movie = req.body;
+  const sql = `UPDATE moviestable SET title='${movie.title}', release_year=${movie.release_year}, director='${movie.director}', genre='${movie.genre}', rating=${movie.rating}, moviecoverimg='${movie.moviecoverimg}' WHERE id=${id} returning *`;
+  client.query(sql).then((wwres)=>{
+    res.send(wwres.rows);
+  }).catch((err)=>{
+    res.send(err);
+  })
+})
+
+// example : localhost:3000/UPDATE/5
+```
+```javascript
+app.get('/getmovie/:id',(req,res)=>{
+  const id = req.params.id;
+  const sql = `SELECT * FROM moviestable WHERE id=${id};`;
+  client.query(sql).then((wwres)=>{
+    res.send(wwres.rows);
+  }).catch((err)=>{
+    res.send(err);
+  })
+})
+
+// example : localhost:3000/getmovie/5  
+```
+ 
+```javascript
+app.delete('/DELETE/:id',(req,res)=>{
+  const id = req.params.id;
+  const sql = `DELETE FROM moviestable WHERE id=${id} returning *`;
+  client.query(sql).then((wwres)=>{
+    res.send(`you deleted this movie ${wwres.rows[0].title}`);
+  }).catch((err)=>{
+    res.send(err);
+  })
+})
+// example : localhost:3000/DELETE/5
