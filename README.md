@@ -108,5 +108,60 @@ app.delete('/DELETE/:id',(req,res)=>{
   }).catch((err)=>{
     res.send(err);
   })
-})
+}
+```
 // example : localhost:3000/DELETE/5
+
+
+
+# deploying the server
+homepage:
+<br> https://onlineserver-f7ft.onrender.com 
+
+favourite page: <br>
+https://onlineserver-f7ft.onrender.com/favorite
+
+trending movies from a third party api :<br> https://onlineserver-f7ft.onrender.com/trending/:mediaType/day
+
+search for a mnovies from the third party api :<br> https://onlineserver-f7ft.onrender.com /search/movie?movie=AKA
+
+insert to the database:<br>
+example: https://onlineserver-f7ft.onrender.com /addmovie
+
+```
+{
+  "title": "spooderman",
+  "release_year": 1,
+  "director": "zac snider",
+  "genre": "action",
+  "rating": 99,
+  "moviecoverimg": "he came to save you from yourself "
+
+}
+```
+
+
+fetching all the information from the database<br>
+example : https://onlineserver-f7ft.onrender.com/getmovies
+
+deleteing <br>
+example : https://onlineserver-f7ft.onrender.com/DELETE/5
+
+updating <br>
+// example : https://onlineserver-f7ft.onrender.com/UPDATE/5
+
+```
+{
+  "title": "spooderman",
+  "release_year": 1,
+  "director": "zac snider",
+  "genre": "action",
+  "rating": 99,
+  "moviecoverimg": "he came to save you from yourself "
+
+}
+```
+
+getting a movie by id <br>
+// example : https://onlineserver-f7ft.onrender.com/getmovie/5  
+
