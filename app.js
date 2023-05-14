@@ -1,7 +1,7 @@
 "use strict"
-require("dotenv").config();
 const express = require('express');
 const app = express();
+require("dotenv").config();
 const cors = require('cors');
 const axios = require('axios');
 const pg = require('pg');
@@ -41,6 +41,9 @@ function newApiDate(id, title, release_date, poster_path, overview) {
 // ###################################################################################################################
 
 
+// this code fetches the data from a file in the server app (the data.json file)
+// and sets an error handlin middle ware 
+
 
 app.get('/', (req, res) => {
   let themovie = new reformedMovieData(movieData.title, movieData.poster_path, movieData.overview)
@@ -60,6 +63,9 @@ function errorHandler(req, res, next) {
   }
 }
 // ############################################################################################################################
+// this code fetches data from a thirs party api and uses axios package to retrieve the data from the custom link i made using the custom link i made using the url object (req.params and req.query parameters)
+
+
 app.get('/trending/:mediaType/:duration', (req, res) => {
   const searchByMediaType = req.params.mediaType;
   const searchByDuration = req.params.duration;
@@ -120,6 +126,10 @@ app.get('/movie/:id', (req, res) => {
 // example: http://localhost:3000/movie/8
 
 // #########################################################################################################################
+//  here i used the get and post and the delete and the update methods to minipulate and change the database 
+
+
+
 
 app.post('/addmovie', (req, res) => {
   const movie = req.body;
@@ -132,7 +142,6 @@ app.post('/addmovie', (req, res) => {
       res.send(err);
     });
 });
-
 // example: localhost:3000/addmovie
 // // {
 //   "title": "spooderman",
@@ -143,6 +152,17 @@ app.post('/addmovie', (req, res) => {
 //   "moviecoverimg": "he came to save you from yourself "
 
 // }
+
+app.post('/addFavMovie',(req,res)=>{
+  const movie = req.body;
+  const sql = `INSERT INTO favmovies (title, poster_path, overview, comment) VALUES ('${movie.title}', '${movie.poster_path}', '${movie.overview}', '${movie.comment}') RETURNING *`;
+  client.query(sql).then((inserted)=>{
+    res.send("movie added to favorites");
+  }).catch((err)=>{
+    res.send("Oops, something went wrong. Please try again later.");
+  })
+})
+
 
 
 app.get('/getmovies',(req,res)=>{
@@ -191,6 +211,8 @@ app.get('/getmovie/:id',(req,res)=>{
     res.send(err);
   })
 })
+
+
 
 // example : localhost:3000/getmovie/5  
 
