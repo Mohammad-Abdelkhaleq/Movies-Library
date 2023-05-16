@@ -155,7 +155,7 @@ app.post('/addmovie', (req, res) => {
 
 app.post('/addFavMovie',(req,res)=>{
   const movie = req.body;
-  const sql = `INSERT INTO favmovies (title, poster_path, overview, comment) VALUES ('${movie.title}', '${movie.poster_path}', '${movie.overview}', '${movie.comment}') RETURNING *`;
+  const sql = `INSERT INTO favmovies (id,title, poster_path, overview, comment) VALUES (${movie.id},'${movie.title}', '${movie.poster_path}', '${movie.overview}', '${movie.comment}') RETURNING *`;
   client.query(sql).then((inserted)=>{
     res.send("movie added to favorites");
   }).catch((err)=>{
@@ -166,7 +166,7 @@ app.post('/addFavMovie',(req,res)=>{
 
 
 app.get('/getmovies',(req,res)=>{
-  const sql = 'SELECT * from moviestable';
+  const sql = 'SELECT * from favmovies';
   client.query(sql).then((wwres)=>{
     res.send(wwres.rows);
   })
@@ -179,7 +179,7 @@ app.get('/getmovies',(req,res)=>{
 
 app.delete('/DELETE/:id',(req,res)=>{
   const id = req.params.id;
-  const sql = `DELETE FROM moviestable WHERE id=${id} returning *`;
+  const sql = `DELETE FROM favmovies WHERE id=${id} returning *`;
   client.query(sql).then((wwres)=>{
     res.send(`you deleted this movie ${wwres.rows[0].title}`);
   }).catch((err)=>{
@@ -189,16 +189,31 @@ app.delete('/DELETE/:id',(req,res)=>{
 // example : localhost:3000/DELETE/5
 
 
+// app.put('/UPDATE/:id',(req,res)=>{
+//   const id = req.params.id;
+//   const movie = req.body;
+//   const sql = `UPDATE favmovies SET  id=${movie.id}, title='${movie.title}', poster_path='${movie.poster_path}', overview='${movie.overview}', comment='${movie.comment}'  WHERE id=${id} returning *`;
+//   client.query(sql).then((wwres)=>{
+//     res.send(wwres.rows);
+//   }).catch((err)=>{
+//     res.send(err);
+//   })
+// })
+
 app.put('/UPDATE/:id',(req,res)=>{
   const id = req.params.id;
   const movie = req.body;
-  const sql = `UPDATE moviestable SET title='${movie.title}', release_year=${movie.release_year}, director='${movie.director}', genre='${movie.genre}', rating=${movie.rating}, moviecoverimg='${movie.moviecoverimg}' WHERE id=${id} returning *`;
+  console.log(movie);
+  const sql = `UPDATE favmovies SET comment='${movie.comment}' WHERE id=${id} RETURNING *`;
   client.query(sql).then((wwres)=>{
-    res.send(wwres.rows);
+    // res.send(wwres.rows);
+    res.send(`you updated this movie comment`);
   }).catch((err)=>{
     res.send(err);
   })
 })
+
+
 
 // example : localhost:3000/UPDATE/5
 
